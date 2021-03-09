@@ -1,0 +1,14 @@
+.Metamask{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    background-color:#303030;
+    color:#f4f4f4;
+    padding: 30px;
+  }
+  .Metamask img,.Metamask a{
+    margin: 0 auto;
+  }
+  .Metamask h3{
+    padding: 5px 0;
+  }

@@ -1,0 +1,29 @@
+.course-card{
+    display:grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: auto;
+    margin: 15px 0;
+}
+.course-img{
+    background-color: #F8F8F8;
+    display: flex;
+    justify-content: center;
+  align-items: center;
+}
+.course-img img{
+    max-width:250px;
+    height: auto;
+    border-radius: 10px;
+   
+}
+.course-content{
+    padding-left: 10px;
+    text-align: left;
+}
+#course-title{
+    font-size: 1.4em;
+    font-weight: bold;
+}
+#course-desc{
+    font-size: 1em;
+}

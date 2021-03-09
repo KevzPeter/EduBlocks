@@ -1,0 +1,24 @@
+.tab-content{
+    height: 100vh;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #C7D0FF;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.form-field{
+    margin: 10px 0;
+}
+.form-container button{
+    width: 50%;
+    margin: auto;
+    margin-top: 10px;
+}
+.left-tab-container{
+    background-color: #F0F0F0;
+    width: 100%;
+    margin: 0!important;
+    padding: 0!important;
+}

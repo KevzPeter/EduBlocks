@@ -1,0 +1,12 @@
+.outer-container span{
+    min-width: 50px;
+  }
+  .form-field{
+    display: flex;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+  }
+  .form-field .fas{
+    margin: 12px 12px 0 0;
+  }
