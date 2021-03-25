@@ -7,6 +7,7 @@
 - Express
 - MongoDB
 - Solidity
+- Web3.js
 - Truffle 
 - Ganache 
 
