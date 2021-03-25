@@ -12,7 +12,7 @@ export const Student=()=>{
                     <Col sm={2} className="left-tab-container">
                         <Nav variant="pills" className="flex-column">
                             <Nav.Item>
-                                <Nav.Link eventKey="first">Courses</Nav.Link>
+                                <Nav.Link eventKey="first">My Courses</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="second">Payments</Nav.Link>
@@ -25,7 +25,7 @@ export const Student=()=>{
                                 <p>List of student courses</p>
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <h3>Your balance: <Badge variant="success">300 EDUB</Badge></h3>
+                                <h3>Your balance: <Badge variant="success">300 EDBX</Badge></h3>
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

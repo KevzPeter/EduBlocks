@@ -1,28 +1,43 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import CourseCard from './CourseCard'
+import {Alert} from 'react-bootstrap'
+import { UserContext } from '../UserContext'
 const axios=require('axios')
+
 
 export const Search=()=>{
     const[search,setSearch]=useState("")
     const [results,setResults]=useState([])
+    const[err,setErr]=useState(false)
+    const {id,setID}=useContext(UserContext)
 
-    const getResults=()=>{
-        axios.post('http://localhost:4000/course_results',{
-            searchterm:search
-        }).then(res=>{
+    const getResults=async()=>{
+        await axios.post('http://localhost:4000/results',{searchterm:search},
+        {headers:{'Content-Type': 'application/json'}}
+        ).then(res=>{
             if(res.data!=undefined){
+            setErr(false)
+            console.log(res.data)
             setResults(res.data)
             }
-            
-        }).catch(err=>{console.log(err)})
+        }).catch(err=>{
+            console.log(err)
+            setErr(true)
+        })
     }
     const ShowResults=()=>{
         return(
-        <div>
-            {results.map((el,idx)=><CourseCard key={idx} title={el.name} 
-           desc={el.description} subs={el.users} price={el.price} author={el.author} />)}
-        </div>
-           
+            err?(<div className="alert-box">
+                <Alert variant="danger">
+                No results
+              </Alert>
+                </div>)
+            :(<div>
+                {results.map((el,idx)=><CourseCard key={idx} title={el.name} 
+                    desc={el.description} subs={el.users} price={el.price} 
+                    author={el.author} id={id} thumbnail={el.thumbnail}/>)}
+            </div>
+            )
         )
     }
     return(

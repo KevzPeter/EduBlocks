@@ -1,18 +1,23 @@
 const mongoose = require('mongoose')
 
-const courseSchema = new mongoose.Schema({
-  name: {
+const submissionSchema = new mongoose.Schema({
+  course_name: {
     type: String,
     required: true
   },
-  id: {
+  course_id: {
     type: Number,
     required: true,
     default: 0
   },
-  description: {
+  std_name: {
     type: String,
     required: true
+  },
+  std_id: {
+    type: Number,
+    required: true,
+    default: 0
   },
   author: {
     type: String,
@@ -20,35 +25,24 @@ const courseSchema = new mongoose.Schema({
   },
   author_id: {
     type: String,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  users: {
-    type: Number,
     required: true,
-    default:0
+    default: 0
   },
-  question:{
-    type:String,
-    required:true
-  },
-  deadline:{
+  submission_time:{
     type:Number,
     required:true,
     default:1
   },
-  thumbnail:{ 
-    type: String, 
-    required:true,
-  },
   content:{
     type:Buffer,
     required:true,
+  },
+  marks:{
+      type:Number,
+      required:true,
+      default:0
   }
 
 })
 
-module.exports = mongoose.model('Course', courseSchema)
+module.exports = mongoose.model('Submission', submissionSchema)

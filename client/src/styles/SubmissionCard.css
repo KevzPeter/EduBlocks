@@ -1,0 +1,45 @@
+.submission-card{
+    display:grid;
+    grid-template-columns: 20% 80%;
+    margin: 15px;
+    border-radius: 10px;
+    padding-bottom: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.submit-img{
+    background-color: #F8F8F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.submit-img img{
+    max-width:200px;
+    height: auto;
+    border-radius: 10px;
+}
+.submission-content{
+    padding-left: 10px;
+    text-align: left;
+}
+#std-name{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+#scourse-title{
+    font-size: 1.1em;
+}
+#course-assgn{
+    font-size: 1.1em;
+}
+.modal-content {
+    width: 40vw;
+}
+.react-pdf__Page__canvas{
+    max-width: 500px;
+}
+.marks{
+background-color: #6D83F2;
+color: white;
+border-radius: 10px;
+padding: 5px 0;
+}

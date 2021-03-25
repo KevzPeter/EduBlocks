@@ -9,6 +9,7 @@ export const Login =({driversm})=>{
     const history = useHistory()
     const[pass,setPass]=useState('')
     const[name,setName]=useState('')
+    const[type,setType]=useState(true)
     const {id,setID}=useContext(UserContext)
     const[fail,setFail]=useState(false)
     const[passerr,setPasserr]=useState(false)
@@ -84,6 +85,17 @@ export const Login =({driversm})=>{
                     </div>
                     {passerr?error(true):null}
                 </form>
+                <div className='custom-control custom-switch'>
+                    <input
+                            type='checkbox'
+                            className='custom-control-input'
+                            id='customSwitchesChecked'
+                            defaultChecked
+                            onChange={e=>{setType(!type)}}/>
+                        <label className='custom-control-label' htmlFor='customSwitchesChecked'>
+                            Login as Student
+                        </label>
+                    </div>
             </div>
             <div className="text-center py-2">
                 <button type="submit" className="btn btn-primary" onClick={post}>Login</button>

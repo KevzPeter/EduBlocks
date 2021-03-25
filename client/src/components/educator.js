@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { Nav, Button, Badge, Row, Col, Tab, Modal } from 'react-bootstrap'
 import '../styles/Educator.css'
+import SubmissionCard from './SubmissionCard'
 const axios = require('axios')
 
 export const Educator = () => {
@@ -12,21 +13,36 @@ export const Educator = () => {
     const[price,setPrice]=useState("")
     const[ques,setQues]=useState("")
     const[dline,setDline]=useState(1)
+    const [thumbnail, setThumbnail] = useState();
+    const [content, setContent] = useState();
+	const [isThumbnailPicked, setThumbnailPicked] = useState(false);
+	const [isContentPicked, setContentPicked] = useState(false);
+
+	const t_changeHandler = (e) => {
+		setThumbnail(e.target.files[0]);
+		setThumbnailPicked(true);
+	};
+    const c_changeHandler = (e) => {
+		setContent(e.target.files[0]);
+		setContentPicked(true);
+	};
+
 
     const uploadCourse=(e)=>{
         e.preventDefault()
         handleClose()
-        axios.post('http://localhost:4000/course',{
-            name:name,
-            id:3,
-            description:desc,
-            author:"kevin",
-            author_id:27,
-            price:price,
-            users:0,
-            deadline:dline,
-            
-        }).then(res=>console.log(res)).catch(err=>{
+        const form = new FormData()
+        form.append("name",name)
+        form.append("id",1)
+        form.append("description",desc)
+        form.append("author","Kevin Peter")
+        form.append("author_id",1)
+        form.append("price",price)
+        form.append("question",ques)
+        form.append("deadline",dline)
+        form.append("thumbnail",thumbnail)
+        form.append("content",content)
+        axios.post('http://localhost:4000/course',form).then(res=>console.log(res)).catch(err=>{
             if(!err){
                 console.log("Network Error")
             }else
@@ -80,21 +96,28 @@ export const Educator = () => {
                                             <input type="number" id="deadline" name="deadline" placeholder="Deadline" onChange={e=>{setDline(e.target.value)}}></input>
                                             </div>
                                         </form>
-                                        <Button className="btn-primary mx-3">Upload Thumbnail</Button>
-                                        <Button className="btn-primary">Upload Content</Button>
+                                        <div>
+                                            <input type="file" name="file" onChange={t_changeHandler} />
+                                            {isThumbnailPicked ? (<p>Size: {(thumbnail===undefined)?"0":((thumbnail.size)/1000000).toFixed(1)} MB</p>) : (<p>Upload Course thumbnail</p>)}
+                                        </div>
+                                        <div>
+                                            <input type="file" name="file" onChange={c_changeHandler} />
+                                            {isContentPicked ? (<p>Size: {(content===undefined)?"0":((content.size)/1000000).toFixed(1)} MB</p>) : (<p>Upload Course content</p>)}
+                                        </div>
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="danger" onClick={handleClose}>Cancel</Button>
                                         <Button variant="success" onClick={uploadCourse}>Publish Course</Button>
                                     </Modal.Footer>
                                 </Modal>
-                                <p>Show list of course cards here</p>
+                                <p>Show list of courses here</p>
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <p>Hi there this is some text</p>
+                                {/* <p>Assignment Submissions show up here</p> */}
+                                <SubmissionCard/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
-                                <h3>Your balance: <Badge variant="success">3000 EDUB</Badge></h3>
+                                <h3>Your balance: <Badge variant="success">3000 EDBX</Badge></h3>
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

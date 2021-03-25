@@ -1,9 +1,15 @@
 .intro-container{
     display: grid;
-    padding-left: 25px;
+    margin: 15px;
+    color: white;
+    background-color: #6D83F2;
+    padding: 10px;
+    border-radius: 10px;
     grid-template-rows: auto;
     grid-template-columns: 50% 50%;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
+
 .Home h1{
     font-size: 75px;
 }
@@ -17,6 +23,7 @@
     display: block;
 }
 .intro-img img{
+    border-radius: 10px;
     width: 500px;
     height: auto;
 }
@@ -24,6 +31,13 @@
  padding: 10px;
  width: 50%;
  margin:auto;
+}
+.search-box{
+    margin: 30px 0;
+}
+.alert{
+    width: 20%;
+    margin: auto;
 }
 @media (max-width:768px){
     .intro-container{

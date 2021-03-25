@@ -1,24 +1,35 @@
+.course-results{
+    justify-content: center;
+    align-items: center;
+}
 .course-card{
     display:grid;
-    grid-template-columns: 25% 75%;
-    grid-template-rows: auto;
-    margin: 15px 0;
+    grid-template-columns: 20% 80%;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .course-img{
     background-color: #F8F8F8;
     display: flex;
     justify-content: center;
-  align-items: center;
+    align-items: center;
 }
 .course-img img{
     max-width:250px;
     height: auto;
     border-radius: 10px;
-   
 }
 .course-content{
+    display: grid;
+    grid-template-rows: repeat(6,35px) ;
     padding-left: 10px;
+    max-height: 210px;
+    margin-bottom: 5px;
     text-align: left;
+}
+.course-content button{
+    width: 20%;
 }
 #course-title{
     font-size: 1.4em;
