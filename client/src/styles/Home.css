@@ -1,20 +1,27 @@
+.Home{
+    background:linear-gradient(to left, #00b09b, #6A82FB);
+    height: 100vh;
+}
 .intro-container{
     display: grid;
     margin: 15px;
     color: white;
-    background-color: #6D83F2;
+   background: linear-gradient(to right, #0f0c29,#302b63,#24243e);
     padding: 10px;
     border-radius: 10px;
-    grid-template-rows: auto;
+    grid-template-rows: 250px;
     grid-template-columns: 50% 50%;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
 .Home h1{
-    font-size: 75px;
+    font-size: 4rem;
 }
 .intro-text{
     text-align: left;
+}
+.intro-img{
+    position: relative;
 }
 .intro-text img{
     width: 230px;
@@ -27,22 +34,47 @@
     width: 500px;
     height: auto;
 }
+#bg{
+    z-index: 0;
+    position: absolute;
+    top: -10px;
+    right: 25px;
+}
+#fg{
+    z-index: 1;
+    position: absolute;
+    top:-5px;
+    right: 25px;
+    animation: bobble infinite 3s ease-in-out;
+}
+@keyframes bobble {
+    0%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(-20px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
 .mb-3{
  padding: 10px;
  width: 50%;
  margin:auto;
 }
 .search-box{
-    margin: 30px 0;
+    padding: 30px 0;
 }
-.alert{
+#home-alert{
     width: 20%;
     margin: auto;
 }
 @media (max-width:768px){
     .intro-container{
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 200px 200px;
     }
     .intro-text img{
         width: 100px;
@@ -53,9 +85,10 @@
     .Home h1{
         font-size: 3.5em;
     }
+    
 }
 #introduction{
-    font-size: 35px;
+    font-size: 2rem;
 }
 #quote{
     font-size: medium;

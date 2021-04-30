@@ -1,7 +1,7 @@
 pragma solidity >=0.4.22 <0.8.0;
 pragma experimental ABIEncoderV2;
 
-contract StudentContract {
+contract Edublocks {
     
     struct Student{
         int id;
@@ -106,6 +106,7 @@ contract StudentContract {
         students[s_id].courses_deadline.push(courses[c_id].deadline+_time);
         students[s_id].balance-=courses[c_id].price; //deducting student balance
         educators[e_id].balance+=courses[c_id].price; //payment for educator
+        students[s_id].marks.push(0); //initializing marks for course
     }
     function reviewAssignment(int s_id,int c_id,int _m) public{
         require(isEducator[msg.sender],"Not authorized to review course"); //only educator can review assignments
@@ -128,19 +129,33 @@ contract StudentContract {
             revert("Sorry, you have failed.");
         }
     }
-    function submitAssignment() public {
+    function submitAssignment(int s_id, int c_id, int _time) public returns (bool) {
         require(!isEducator[msg.sender],"Not authorized to submit course"); //check if it's a Student account
-        //check deadline
-        //if deadline passed->marks=0
+        uint totalCourses=students[s_id].courses_id.length;
+        for(uint i=0;i<totalCourses;i++){
+            if(students[s_id].courses_id[i]==c_id){
+                if(_time<=students[s_id].courses_deadline[i]){
+                    return(true);
+                }
+                else
+                //if deadline passed,set marks=0
+                {
+                    students[s_id].marks[i]=0;
+                    return(false);
+                }
+            }
+        }
     }
-function getCourse(int _id) view public returns (Course memory){
-    return(courses[_id]);
-}
-function getStudent(int _id) view public returns (Student memory){
-    return(students[_id]);
-}
-function getEducator(int _id) view public returns (Educator memory){
-    return(educators[_id]);
-}
-
+    function getCourse(int _id) view public returns (Course memory){
+        return(courses[_id]);
+    }
+    function getStudent(int _id) view public returns (Student memory){
+        return(students[_id]);
+    }
+    function getEducator(int _id) view public returns (Educator memory){
+        return(educators[_id]);
+    }
+    function getCourseCount() view public returns(int){
+        return(courseCount);
+    }
 }

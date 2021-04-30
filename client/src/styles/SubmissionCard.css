@@ -31,6 +31,10 @@
 #course-assgn{
     font-size: 1.1em;
 }
+#tx-hash{
+    font-size: 0.8rem;
+    color: #636363;
+}
 .modal-content {
     width: 40vw;
 }

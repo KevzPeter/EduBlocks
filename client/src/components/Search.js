@@ -5,14 +5,14 @@ import { UserContext } from '../UserContext'
 const axios=require('axios')
 
 
-export const Search=()=>{
+export const Search=({address,t_contract,ts_contract})=>{
     const[search,setSearch]=useState("")
     const [results,setResults]=useState([])
     const[err,setErr]=useState(false)
-    const {id,setID}=useContext(UserContext)
+    const {id}=useContext(UserContext)
 
     const getResults=async()=>{
-        await axios.post('http://localhost:4000/results',{searchterm:search},
+        await axios.post('http://localhost:4000/courses/results',{searchterm:search},
         {headers:{'Content-Type': 'application/json'}}
         ).then(res=>{
             if(res.data!=undefined){
@@ -25,17 +25,17 @@ export const Search=()=>{
             setErr(true)
         })
     }
-    const ShowResults=()=>{
+    const ShowResults=(address,t_contract,ts_contract)=>{
         return(
             err?(<div className="alert-box">
-                <Alert variant="danger">
+                <Alert variant="danger" id="home-alert">
                 No results
               </Alert>
                 </div>)
             :(<div>
-                {results.map((el,idx)=><CourseCard key={idx} title={el.name} 
-                    desc={el.description} subs={el.users} price={el.price} 
-                    author={el.author} id={id} thumbnail={el.thumbnail}/>)}
+                {results.map((el,idx)=><CourseCard key={idx} t_contract={t_contract} title={el.name} address={address}
+                    desc={el.description} subs={el.users} price={el.price} ts_contract={ts_contract} author_address={el.address}
+                    author={el.author} id={id.id} thumbnail={el.thumbnail} type={true} user={id.user}/>)}
             </div>
             )
         )
@@ -49,7 +49,7 @@ export const Search=()=>{
             </div>
             </div>
             <div className="course-results">
-                <ShowResults/>
+                <ShowResults address={address}ts_contract={ts_contract} t_contract={t_contract}/>
             </div>
         </div>
     )

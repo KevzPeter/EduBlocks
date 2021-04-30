@@ -22,3 +22,25 @@
     margin: 0!important;
     padding: 0!important;
 }
+.buyToken{
+    margin: 10px;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+    padding: 10px;
+}
+#balance{
+    margin: 10px 0px;
+}
+.form-control.token{
+    margin: auto;
+    margin-bottom: 10px;
+    width: 25%;
+}
+#s-address,#e-address{
+    color: #8e92a3;
+    border-radius: 10px;
+    margin: auto;
+    width: 60%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

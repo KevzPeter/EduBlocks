@@ -1,18 +1,18 @@
 import React,{ useContext, useState } from 'react'
 import {Link,useHistory} from 'react-router-dom'
-import { UserContext } from '../UserContext';
+import { UserContext } from '../UserContext'
 import '../styles/Login.css'
 
 
-export const Login =({driversm})=>{
+export const Login =({contract})=>{
 
     const history = useHistory()
-    const[pass,setPass]=useState('')
-    const[name,setName]=useState('')
-    const[type,setType]=useState(true)
+    const [pass,setPass]=useState('')
+    const [name,setName]=useState('')
+    const [type,setType]=useState(true)
     const {id,setID}=useContext(UserContext)
-    const[fail,setFail]=useState(false)
-    const[passerr,setPasserr]=useState(false)
+    const [fail,setFail]=useState(false)
+    const [passerr,setPasserr]=useState(false)
 
     const error=(err)=>{
         if(err){
@@ -29,30 +29,40 @@ export const Login =({driversm})=>{
     const failure=()=>{
         return(
             <div className="alert alert-danger" role="alert">
-                <h4>Incorrect Details. Check email/password</h4>
+                <h5>Incorrect Details. Check username/password</h5>
             </div>
            
         )
     }
     const loginfunc=async()=>{
-        history.push(`/student/${id}`)
-        // await driversm.methods.login(name,pass).call().then(
-        //     res=>{
-        //         if(res[0]!=9999 && res[0]!=0){
-        //             setID(res[0])
-        //             setFail(false)
-        //             if(res[1]===true){
-        //                 history.push("/officer");
-        //             }
-        //             else{
-        //                 history.push("/driver")
-        //             }
-        //         }
-        //        else{
-        //            setFail(true)
-        //        }
-        //     }
-        // )
+        if(type===true){
+            await contract.methods.studentLogin(name,pass).call().then(
+                res=>{
+                    if(res[0]!=-1 && res[0]!=0){
+                        setID({id:res[0],user:"student"})
+                        setFail(false)
+                        history.push("/student")
+                    }
+                   else{
+                       setFail(true)
+                   }
+                }
+            )
+        }
+        else{
+            await contract.methods.educatorLogin(name,pass).call().then(
+                res=>{
+                    if(res[0]!=-1 && res[0]!=0){
+                        setID({id:res[0],user:"educator"})
+                        setFail(false)
+                        history.push("/educator")
+                    }
+                   else{
+                       setFail(true)
+                   }
+                }
+            )
+        }
     }
     const post=()=>{
         if(pass.length===0||name.length===0){

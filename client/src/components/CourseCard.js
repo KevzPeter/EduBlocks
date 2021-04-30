@@ -2,15 +2,22 @@ import React from 'react'
 import '../styles/CourseCard.css'
 import course_logo from '../assets/undraw_Graduation.png'
 import Badge from 'react-bootstrap/Badge'
+import Button from 'react-bootstrap/Button'
+import {Link} from 'react-router-dom'
 
-export const CourseCard=({title,desc,subs,price,author,thumbnail,id})=>{
+export const CourseCard=({address,t_contract,ts_contract,title,s_name,c_id,desc,subs,price,author,thumbnail,id,type,user,author_address})=>{
     
-    const purchase=()=>{
-        if(id==null || id===undefined){
-            window.alert('Please login to purchase course')
+    const purchase= async()=>{
+        if(id==null){
+            window.alert('Create a Student Account to Purchase')
         }
         else{
-            //purchase course
+            await ts_contract.meothds.payEducator(author_address,parseInt(price)).send({from:address}, (err, hash) => {
+                if (err) 
+                console.log("Error: ", err) 
+                else
+                console.log("Hash: ", hash)
+            })
         }
     }
     return(
@@ -24,7 +31,8 @@ export const CourseCard=({title,desc,subs,price,author,thumbnail,id})=>{
                 <p id='course-subs'>Users: <Badge variant='info'>{subs || "0"}</Badge></p>
                 <p id='course-price'>Price: <Badge variant='success'>{price || "No data"}</Badge></p>
                 <p id='course-author'>Author: <Badge variant='secondary'>{author || "No data"}</Badge></p>
-                <button className="btn btn-info" onClick={purchase}>Purchase</button>
+                {!type?<Link to={{pathname:'/course',c_id:c_id, c_name:title, s_name:s_name}}><Button>Open Course</Button></Link>:
+                <Button className="btn-info" onClick={purchase} disabled={user=='educator'}>Purchase</Button>}
             </div>
         </div>
     )

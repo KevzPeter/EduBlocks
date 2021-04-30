@@ -1,14 +1,13 @@
 import React,{useContext} from 'react'
 import Metamask_Error from './metamask_error'
-import Ethererum_GIF from '../assets/ether_animation.gif'
+import eth_png from '../assets/eth_png.png'
+import ethbg_png from '../assets/ethbg_png.png'
 import Search from './Search'
-import { UserContext } from '../UserContext'
 
 import '../styles/Home.css'
 
-export const Home = ({error}) => {
+export const Home = ({address,contract,t_contract,ts_contract,error}) => {
 
-    const {id,setID}=useContext(UserContext)
 
     if(error){
         return(
@@ -18,7 +17,7 @@ export const Home = ({error}) => {
     else{
         return (
             <div className="Home">
-            <Search/>
+            <Search address={address} t_contract={t_contract} ts_contract={ts_contract}/>
             <div className="intro-container">
                 <div className="intro-text">
                     <h1>Edublocks</h1>
@@ -26,7 +25,8 @@ export const Home = ({error}) => {
                     <p id="quote">"The more you learn the more you earn"</p>
                 </div>
                 <div className="intro-img">
-                    <img src={Ethererum_GIF} alt="blockchain_animation"></img>
+                    <img src={ethbg_png}  id="bg" alt="blockchain_animation"></img>
+                    <img src={eth_png} id="fg" alt="blockchain_animation"></img>
                 </div>
             </div>
             </div>

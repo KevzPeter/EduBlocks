@@ -6,3 +6,21 @@
 .custom{
     margin-top: 20px;
 }
+.col-sm-10{
+    background:linear-gradient(to top, #f5e3e6, #d9e4f5);
+    height: 100vh;
+}
+.react-pdf__Document{
+    width: 100%;
+    text-align: center;
+}
+.react-pdf__Page{
+    display: inline-block;
+    margin: auto;
+}
+#assignment-ques{
+    color:#19a051
+}
+#deadline{
+    color: rgb(224, 58, 58);
+}

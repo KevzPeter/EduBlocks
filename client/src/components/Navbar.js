@@ -9,7 +9,7 @@ const Navigation = () => {
 
     const {id,setID}=useContext(UserContext)
     const logout=()=>{
-        setID(null)
+        setID({id:null,user:null})
     }
     return (
         <Navbar bg="light">
@@ -22,16 +22,21 @@ const Navigation = () => {
                     className="d-inline-block align-top"/>{' '} Edublocks
     </Navbar.Brand>
     </Link>        
-    {id==null?(
+    {id.id==null?(
     <Navbar.Collapse>
     <Nav >
       <Nav.Link href="/login"><Button className="btn-success">Login</Button></Nav.Link>
       <Nav.Link href="/signup"><Button className="btn-success">Signup</Button></Nav.Link>
     </Nav>
   </Navbar.Collapse>
-  ):(<Navbar.Collapse>
+  ):(id.user=="student"?<Navbar.Collapse>
   <Nav >
-    <Link to="/student"><Button className="btn-info">Account</Button></Link>
+    <Link to="/student"><Button className="btn-info" id="account1">Account</Button></Link>
+    <Link to="/"><Button className="btn-danger" onClick={logout}>Logout</Button></Link>
+  </Nav>
+</Navbar.Collapse>:<Navbar.Collapse>
+  <Nav >
+    <Link to="/educator"><Button className="btn-info" id="account2">Account</Button></Link>
     <Link to="/"><Button className="btn-danger" onClick={logout}>Logout</Button></Link>
   </Nav>
 </Navbar.Collapse>)}

@@ -7,58 +7,48 @@ export const Signup = ({ address, contract }) => {
     const history = useHistory();
     const [name, setName] = useState('')
     const [pass, setPass] = useState('')
-    const [acc, setAcc] = useState(false)
     const [succ, setSucc] = useState(false)
     const [fail, setFail] = useState(false)
     const [type, setType] = useState(true)
     const [passerr, setPasserr] = useState(false)
-    const [blankerr, setBlankerr] = useState(false)
 
     const success = () => {
-        // addUser()
         history.push("/login")
     }
-    // const addUser=async()=>{
-    //     if(type===true){
-    //         await contract.methods.addStudent(name,pass)
-    //         .send({from:address}, (err, hash) => {
-    //             if (err) { 
-    //             console.log("Error: ", err) 
-    //             setFail(true)
-    //             }
-    //             else{
-    //                 console.log("Hash: ", hash)
-    //                 setSucc(true)
-    //             }
+    const addUser=async()=>{
+        if(type===true){
+            await contract.methods.addStudent(name,pass)
+            .send({from:address}, (err, hash) => {
+                if (err) { 
+                console.log("Error: ", err) 
+                setFail(true)
+                }
+                else{
+                    console.log("Hash: ", hash)
+                    setSucc(true)
+                }
 
-    //         })
-    //     }
-    //   else{
-    //     await contract.methods.addEducator(name,pass)
-    //     .send({from:address}, (err, hash) => {
-    //         if (err) { 
-    //         console.log("Error: ", err) 
-    //         setFail(true)
-    //         }
-    //         else{
-    //             console.log("Hash: ", hash)
-    //             setSucc(true)
-    //         }
+            })
+        }
+      else{
+        await contract.methods.addEducator(name,pass)
+        .send({from:address}, (err, hash) => {
+            if (err) { 
+            console.log("Error: ", err) 
+            setFail(true)
+            }
+            else{
+                console.log("Hash: ", hash)
+                setSucc(true)
+            }
 
-    //     })
-    //   }
-    //   }
+        })
+      }
+      }
     const passError = () => {
         return (
             <div className="alert alert-danger" role="alert">
                 <p>Password should contain more than 8 characters</p>
-            </div>
-        )
-    }
-    const blankError = () => {
-        return (
-            <div className="alert alert-danger" role="alert">
-                <p>One or more input fields is blank</p>
             </div>
         )
     }
@@ -69,35 +59,33 @@ export const Signup = ({ address, contract }) => {
             </div>
         )
     }
-    const checkpassword = () => {
-        if (pass.length < 8) {
-            setPasserr(true)
-            return false;
-        }
-        else {
-            setPasserr(false)
-            return true;
-        }
-    }
-    const checkblank = () => {
-        if (name.length === 0 || name.length === undefined || pass.length === 0 || pass.length === undefined) {
-            setBlankerr(true)
-            return false;
-        }
-        else {
-            setBlankerr(false)
-            return true;
-        }
-    }
+    // const checkpassword = () => {
+    //     if (pass.length < 8) {
+    //         setPasserr(true)
+    //         return false;
+    //     }
+    //     else {
+    //         setPasserr(false)
+    //         return true;
+    //     }
+    // }
+    // const checkblank = () => {
+    //     if (name.length === 0 || name.length === undefined || pass.length === 0 || pass.length === undefined) {
+    //         setBlankerr(true)
+    //         return false;
+    //     }
+    //     else {
+    //         setBlankerr(false)
+    //         return true;
+    //     }
+    // }
     const post = () => {
-        checkpassword()
-        checkblank()
-        // if(checkblank && checkpassword){
-        //     setSucc(true)
-        // }
-        // else{
-        //     setFail(true)
-        // }
+        if(pass.length<8){
+            setPasserr(true)
+        }
+        else{
+            addUser()
+        }
     }
     return (
         <div className="outer-container justify-content-center">
@@ -129,7 +117,6 @@ export const Signup = ({ address, contract }) => {
                         </label>
                     </div>
                     {passerr ? passError() : null}
-                    {blankerr ? blankError() : null}
                 </form>
             </div>
             <div className="text-center py-2">

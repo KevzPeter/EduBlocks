@@ -4,21 +4,22 @@
 }
 .course-card{
     display:grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 25% 75%;
     margin: 15px;
+    background-color: #F8F8F8;
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .course-img{
     background-color: #F8F8F8;
     display: flex;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
 }
 .course-img img{
-    max-width:250px;
-    height: auto;
-    border-radius: 10px;
+    max-width:90%;
+    max-height:100%;
 }
 .course-content{
     display: grid;

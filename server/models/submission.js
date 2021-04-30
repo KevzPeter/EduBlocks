@@ -19,6 +19,10 @@ const submissionSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
+  address: {
+    type: String,
+    required: true
+  },
   author: {
     type: String,
     required: true
@@ -32,6 +36,10 @@ const submissionSchema = new mongoose.Schema({
     type:Number,
     required:true,
     default:1
+  },
+  transaction_hash:{
+    type:String,
+    required:true
   },
   content:{
     type:Buffer,

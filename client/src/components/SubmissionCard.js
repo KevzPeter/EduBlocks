@@ -6,18 +6,19 @@ import '../styles/SubmissionCard.css'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const axios = require('axios')
 
-export const SubmissionCard=()=>{
+export const SubmissionCard=({std_name,course_name,std_id,course_id,tx,content,student_address})=>{
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => {
-        setShow(true)
-        getSubmission()
+    const handleClose = () => {
+        setShow(false) 
+        setShowErr(false)
     };
-    const [renderPDF,setRenderPDF]=useState(null)
+    const handleShow = () =>  setShow(true);
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
-    const [grade,setGrade]=useState();
+    const [grade,setGrade]=useState("");
+    const [err,setErr]=useState(false)
+    const [showErr,setShowErr]=useState(false)
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
@@ -33,20 +34,28 @@ export const SubmissionCard=()=>{
       function nextPage() { 
         changePage(1); 
       } 
-
-      const getSubmission=()=>{
-         fetch('http://localhost:4000/submissions').then(response => response.json())
-         .then(data =>setRenderPDF(data.content.data));
+      const uploadMarks=async()=>{
+        axios.post('http://localhost:4000/submissions/uploadmarks',
+        {marks:grade,course_id:course_id,std_id:std_id}).then(async res=>{
+        setShowErr(true)
+        res.status==200?setErr(false):setErr(true)
+        }).catch(err=>{
+            if(!err)
+            console.log('Network Error')
+            else
+            console.log(err)
+        })  
+        //add reward function here 
       }
+      
     return(
         <div className="submission-card">
             <div className="submit-img">
                 <img src={user_logo} alt="user_img"></img>
             </div>
             <div className="submission-content">
-                <p id='std-name'>Submitted by: Kevin Peter</p>
-                <p id='scourse-title'>Course: Introduction to Blockchain</p>
-                <p id='course-assgn'>Assignment: Explain Proof-of-Work in Blockchain Technology</p>
+                <p id='std-name'>Submitted by: {std_name}</p>
+                <p id='scourse-title'>Course: {course_name}</p>
                 <p id='marks'>Marks: <Badge variant='info'>ungraded</Badge></p>
                 <Button className="btn-info" onClick={handleShow} >Grade Submission</Button>
                                 <Modal show={show} onHide={handleClose}>
@@ -54,9 +63,9 @@ export const SubmissionCard=()=>{
                                         <Modal.Title>Grade Submission</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                {renderPDF?(<Document file={{data: renderPDF}} onLoadSuccess={onDocumentLoadSuccess}>
+                                {content?(<Document file={{data: content.data}} onLoadSuccess={onDocumentLoadSuccess}>
                                     <Page pageNumber={pageNumber} />
-                                </Document>):(<p>Loading...</p>)}
+                                </Document>):(<p>Unavailable</p>)}
                                     <p>Page {pageNumber} of {numPages}</p>
                                     <div className="buttonc"> 
                                     <Button disabled={pageNumber <= 1} onClick={previousPage} className="mx-2">Previous</Button> 
@@ -66,12 +75,15 @@ export const SubmissionCard=()=>{
                                             <label htmlFor="grade">Marks <i className="fas fa-clipboard-check"></i></label>
                                             <input type="number" id="grade" name="Grade" max="100" min="0" placeholder="Grade" onChange={e=>{setGrade(e.target.value)}}></input>
                                             </div>
+                                    {showErr?err?<div className="alert alert-danger">Unable to set Marks</div>:
+                                    <div className="alert alert-success"><p>Marks Updated<i class="fas fa-check"></i></p></div>:null}
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="danger" onClick={handleClose}>Cancel</Button>
-                                        <Button variant="success">Set Grade</Button>
+                                        <Button variant="success" onClick={uploadMarks}>Set Grade</Button>
                                     </Modal.Footer>
                                 </Modal>
+                                <p id="tx-hash">Transaction Hash:{tx}</p>
             </div>
         </div>
     )

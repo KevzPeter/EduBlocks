@@ -79,7 +79,7 @@ module.exports = {
   mocha: {
     // timeout: 100000
   },
-contracts_build_directory:path.join(__dirname,"client/src/contracts"),
+contracts_build_directory:path.join(__dirname,"./client/src/contracts"),
   // Configure your compilers
   compilers: {
     solc: {

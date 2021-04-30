@@ -5,6 +5,9 @@
     position: absolute;
     right:10px;
 }
+#account1,#account2{
+    margin-right: 10px;
+}
 @media screen and(min-width:768px){
     .navbar-nav{
         background-color: black;
