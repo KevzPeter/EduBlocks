@@ -81,7 +81,7 @@ router.post('/getmarks',async(req,res)=>{
     else{
       const submission=await Submission.findOne({ $and:[{std_id:req.body.std_id},{course_id:req.body.course_id}]})
       if(submission){
-        res.status(200).send(submission.marks)
+        res.status(200).send(submission)
         console.log("Marks Displayed")
       }
       else{

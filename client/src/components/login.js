@@ -36,7 +36,7 @@ export const Login =({contract})=>{
     }
     const loginfunc=async()=>{
         if(type===true){
-            await contract.methods.studentLogin(name,pass).call().then(
+            await contract?.methods.studentLogin(name,pass).call().then(
                 res=>{
                     if(res[0]!=-1 && res[0]!=0){
                         setID({id:res[0],user:"student"})

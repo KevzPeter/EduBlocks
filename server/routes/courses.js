@@ -75,15 +75,9 @@ router.post('/upload',upload.any(),async (req, res) => {
     if(req.body.courses== null||undefined)
     res.status(400).send("List of subscribed courses not sent")
     else{
-        coursesArr=[]
-        req.body.courses.forEach(async el=>{
-            const studentCourse=await Course.findOne({id:el})
-            if(studentCourse){
-                coursesArr.push(studentCourse)
-            }
-        })
-        if(coursesArr.length!=0){
-        res.status(200).send(coursesArr)
+      const studentCourse=await Course.find({id:req.body.courses[0]})
+        if(studentCourse){
+        res.status(200).send(studentCourse)
         console.log("Student's courses displayed")
       }
       else{
@@ -103,6 +97,23 @@ router.post('/upload',upload.any(),async (req, res) => {
       }
       else{
         res.status(404).send("Unable to fetch data")
+      }
+    }
+  })
+  //update number of users
+  router.post('/updateusers', async (req, res) => {
+    if(req.body.course_id == null)
+    res.status(400).send("Course ID not set")
+    else{
+        const course=await Course.findOne({id:req.body.course_id})
+        if(course){
+          course.users++;
+          await course.save()
+          res.status(200).send("Course users updated")
+          console.log("Course users updated")
+      }
+      else{
+        res.status(404).send("Unable to update user count")
       }
     }
   })

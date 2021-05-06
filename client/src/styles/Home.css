@@ -6,12 +6,13 @@
     display: grid;
     margin: 15px;
     color: white;
-   background: linear-gradient(to right, #0f0c29,#302b63,#24243e);
-    padding: 10px;
+    background-color: #0F0A1C;
+    padding: 5px;
     border-radius: 10px;
     grid-template-rows: 250px;
     grid-template-columns: 50% 50%;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    animation: fade-in 1s ease-in-out;
 }
 
 .Home h1{
@@ -19,33 +20,41 @@
 }
 .intro-text{
     text-align: left;
+    background: linear-gradient(to right,#282263,#0F0A1C)
 }
 .intro-img{
     position: relative;
 }
-.intro-text img{
-    width: 230px;
-    height: auto;
-    margin: auto;
-    display: block;
+.intro-text>h1{
+    opacity: 0;
+    animation: slide 1.5s ease-in-out forwards;
+}
+#introduction{
+    opacity: 0;
+    animation: slide 1.5s  ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+#quote{
+    opacity: 0;
+    animation: slide 1.5s  ease-in-out forwards;
+    animation-delay: 1s;
 }
 .intro-img img{
     border-radius: 10px;
-    width: 500px;
-    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+.information{
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    animation: fadein 1s forwards ease-in-out;
+}
+.alert-box button{
+        outline:none; 
 }
 #bg{
-    z-index: 0;
+    right: 75px;
     position: absolute;
-    top: -10px;
-    right: 25px;
-}
-#fg{
-    z-index: 1;
-    position: absolute;
-    top:-5px;
-    right: 25px;
-    animation: bobble infinite 3s ease-in-out;
 }
 @keyframes bobble {
     0%{
@@ -58,13 +67,49 @@
         transform: translateY(0px);
     }
 }
+@keyframes fade-in {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes drop {
+    0%{
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+@keyframes slide {
+    0%{
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(15px);
+        opacity: 1;
+    }
+}
 .mb-3{
  padding: 10px;
  width: 50%;
  margin:auto;
 }
 .search-box{
+    opacity: 0;
     padding: 30px 0;
+    animation: 1s drop ease-in-out forwards;
 }
 #home-alert{
     width: 20%;

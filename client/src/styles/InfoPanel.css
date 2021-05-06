@@ -1,0 +1,21 @@
+.info-panel{
+    display: grid;
+    grid-template-columns: 85% 15%;
+    margin: 15px;
+    color: white;
+    border-radius: 10px;
+    background:linear-gradient(to left, #00b09b, #007BFF);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    animation: 0.5s drop ease-in-out forwards;
+}
+.info-panel>.left{
+    text-align: left;
+    padding-top:10px;
+    padding-left: 20px;
+}
+.info-panel>.right{
+    margin: auto;
+}
+#info-address{
+    color: #d2d5e4;
+}

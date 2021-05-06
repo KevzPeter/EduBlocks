@@ -17,7 +17,7 @@ export const Signup = ({ address, contract }) => {
     }
     const addUser=async()=>{
         if(type===true){
-            await contract.methods.addStudent(name,pass)
+            await contract?.methods.addStudent(name,pass)
             .send({from:address}, (err, hash) => {
                 if (err) { 
                 console.log("Error: ", err) 
@@ -31,7 +31,7 @@ export const Signup = ({ address, contract }) => {
             })
         }
       else{
-        await contract.methods.addEducator(name,pass)
+        await contract?.methods.addEducator(name,pass)
         .send({from:address}, (err, hash) => {
             if (err) { 
             console.log("Error: ", err) 
@@ -59,26 +59,7 @@ export const Signup = ({ address, contract }) => {
             </div>
         )
     }
-    // const checkpassword = () => {
-    //     if (pass.length < 8) {
-    //         setPasserr(true)
-    //         return false;
-    //     }
-    //     else {
-    //         setPasserr(false)
-    //         return true;
-    //     }
-    // }
-    // const checkblank = () => {
-    //     if (name.length === 0 || name.length === undefined || pass.length === 0 || pass.length === undefined) {
-    //         setBlankerr(true)
-    //         return false;
-    //     }
-    //     else {
-    //         setBlankerr(false)
-    //         return true;
-    //     }
-    // }
+
     const post = () => {
         if(pass.length<8){
             setPasserr(true)
@@ -120,7 +101,7 @@ export const Signup = ({ address, contract }) => {
                 </form>
             </div>
             <div className="text-center py-2">
-                <button type="submit" className="btn btn-primary" onClick={post}>Register</button>
+                <button type="submit" className="btn btn-primary" onClick={()=>post()}>Register</button>
                 <p id="help"><em>Already have an account? </em>
                     <Link to={'/login'}> Login!</Link></p>
             </div>

@@ -18,6 +18,19 @@
     display: inline-block;
     margin: auto;
 }
+.result{
+    background:linear-gradient(to left, #0003b0, #2f8fc7);
+    border-radius: 10px;
+    min-height: 80px;
+    max-width: 50%;
+    margin: auto;
+    color: white;
+}
+.result p{
+    margin-top: 20px;
+    padding-top: 15px;
+    font-size: 2rem;
+}
 #assignment-ques{
     color:#19a051
 }

@@ -4,16 +4,18 @@ import { UserContext } from '../UserContext'
 import { Nav, Button, Badge, Row, Col, Tab, Modal } from 'react-bootstrap'
 import CourseCard from './CourseCard'
 import Metamask_Error from './metamask_error'
+import InfoPanel from './infopanel'
+
 const axios = require('axios')
 
 export const Student=({address,contract,t_contract,ts_contract})=>{
     const tokenPrice = 100000000000000;
     const {id}=useContext(UserContext)
-    const [count,setCount] = useState(0)
+    const [count,setCount] = useState(-1)
     const [name,setName] = useState("")
     const [tokens,setTokens] = useState(0)
     const [balance,setBalance] = useState(0)
-    const [courses,setCourses] = useState([])
+    const [deadline,setDeadline]=useState(0)
     const [results,setResults]=useState([])
 
     useEffect(()=>{
@@ -22,23 +24,24 @@ export const Student=({address,contract,t_contract,ts_contract})=>{
     },[])
     const getCourses=async()=>{
         if(contract!==undefined && id.id!=null){
-            await contract.methods.getStudent(id.id).call().then(res=>{
+            await contract.methods.getStudent(id.id).call().then(async res=>{
                 console.log(res)
-                if(res!=null||undefined && res[4]!=null||undefined){
+                if(res!=null||undefined && res[4][0]!=null||undefined){
                 setName(res[1])
-                setCourses(res[4])
+                setDeadline(res[5])
                 }
+                axios.post('http://localhost:4000/courses/student',{courses:res[4]},{headers:{'Content-Type': 'application/json'}})
+                .then(res=>{
+                    if(res.data!=undefined)
+                    setResults(res.data)
+                    setCount(0)
+                }).catch(err=>{
+                    if(!err){
+                        console.log("Network Error")
+                    }else
+                    console.log(err)})
             })
         }
-        axios.post('http://localhost:4000/courses/student',{courses:courses},{headers:{'Content-Type': 'application/json'}})
-        .then(res=>{
-            if(res.data!=undefined)
-            setResults(res.data)
-        }).catch(err=>{
-            if(!err){
-                console.log("Network Error")
-            }else
-            console.log(err)})
     }
     const getBalance=async()=>{
          if(t_contract!==undefined && id.id!=null){
@@ -62,7 +65,7 @@ export const Student=({address,contract,t_contract,ts_contract})=>{
     const ShowResults=()=>{
         return(
             <div>
-                {results.map((el,idx)=><CourseCard key={idx} title={el.name} s_name={name}
+                {results.map((el,idx)=><CourseCard key={idx} title={el.name} s_name={name} deadline={deadline}
                     desc={el.description} subs={el.users} price={el.price} c_id={el.id}
                     author={el.author} id={id.id} thumbnail={el.thumbnail} type={false}/>)}
             </div>
@@ -99,12 +102,14 @@ export const Student=({address,contract,t_contract,ts_contract})=>{
                     <Col sm={10}>
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
-                                <h6 id="s-address">Your Address: {address}</h6>
-                               <h4>You have {count} course(s) available</h4>
+                                <InfoPanel address={address} name={name}/>
+                               <h4>Courses</h4>
                                <ShowResults />
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                            <h3 id="balance">Your balance: <Badge variant="success">{balance} EDBX</Badge></h3>
+                            <div className="result">
+                                        <p>Your balance: <Badge variant="success">{balance} EDBX</Badge></p>
+                                    </div>
                                 <div className="buyToken">
                                     <h5><label htmlFor="token">EDBX Tokens <i className="fas fa-coins"></i></label></h5>
                                     <input type="text" id="edbx" name="edbx" className="form-control token"

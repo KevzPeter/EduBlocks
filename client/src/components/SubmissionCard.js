@@ -6,7 +6,7 @@ import '../styles/SubmissionCard.css'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const axios = require('axios')
 
-export const SubmissionCard=({std_name,course_name,std_id,course_id,tx,content,student_address})=>{
+export const SubmissionCard=({address,contract,ts_contract,std_name,course_name,std_id,course_id,tx,content,student_address,marks})=>{
 
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -35,6 +35,22 @@ export const SubmissionCard=({std_name,course_name,std_id,course_id,tx,content,s
         changePage(1); 
       } 
       const uploadMarks=async()=>{
+        if(grade>=90){
+            await ts_contract.methods.rewardToken(student_address,20).send({from:address}, (err, hash) => {
+                if (err) 
+                console.log("Error: ", err) 
+                else
+                console.log("Hash: ", hash)
+            })
+        }
+        else if (grade>=80){
+            await ts_contract.methods.rewardToken(student_address,10).send({from:address}, (err, hash) => {
+                if (err) 
+                console.log("Error: ", err) 
+                else
+                console.log("Hash: ", hash)
+            })
+        }
         axios.post('http://localhost:4000/submissions/uploadmarks',
         {marks:grade,course_id:course_id,std_id:std_id}).then(async res=>{
         setShowErr(true)
@@ -44,8 +60,7 @@ export const SubmissionCard=({std_name,course_name,std_id,course_id,tx,content,s
             console.log('Network Error')
             else
             console.log(err)
-        })  
-        //add reward function here 
+        })
       }
       
     return(
@@ -56,8 +71,8 @@ export const SubmissionCard=({std_name,course_name,std_id,course_id,tx,content,s
             <div className="submission-content">
                 <p id='std-name'>Submitted by: {std_name}</p>
                 <p id='scourse-title'>Course: {course_name}</p>
-                <p id='marks'>Marks: <Badge variant='info'>ungraded</Badge></p>
-                <Button className="btn-info" onClick={handleShow} >Grade Submission</Button>
+                <p id='marks'>Marks: <Badge variant='info'>{marks?marks:"Ungraded"}</Badge></p>
+                <Button className="btn-info" onClick={handleShow} disabled={marks!=0}>Grade Submission</Button>
                                 <Modal show={show} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                         <Modal.Title>Grade Submission</Modal.Title>
