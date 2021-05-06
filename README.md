@@ -1,5 +1,5 @@
 # EduBlocks - Blockchain Based E-Learning Platform 
-6th Semester Minor Project in Blockchain
+6th Semester Minor Project on Blockchain/Smart Contract applications in Education 
 
 ## Features
 - Online market-place for students, educators, content-creators, developers etc. to publish and purchase courses
