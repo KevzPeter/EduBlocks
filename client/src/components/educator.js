@@ -84,6 +84,7 @@ export const Educator = ({ address, contract, t_contract, ts_contract }) => {
         axios.post('http://localhost:4000/courses/upload', form).then(async res => {
             setCount(count + 1)
             getCourses()
+            setCourseID(courseID+1)
         }).catch(err => {
             if (!err) {
                 console.log("Network Error")

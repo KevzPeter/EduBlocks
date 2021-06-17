@@ -1,39 +1,39 @@
-.custom-file{
-    text-align: left;
-    margin: auto;
-    width:40%;
+.custom-file {
+  text-align: left;
+  margin: auto;
+  width: 40%;
 }
-.custom{
-    margin-top: 20px;
+.custom {
+  margin-top: 20px;
 }
-.col-sm-10{
-    background:linear-gradient(to top, #f5e3e6, #d9e4f5);
-    height: 100vh;
+.col-sm-10 {
+  background: linear-gradient(to top, #f5e3e6, #d9e4f5);
+  min-height: 1000px;
 }
-.react-pdf__Document{
-    width: 100%;
-    text-align: center;
+.react-pdf__Document {
+  width: 100%;
+  text-align: center;
 }
-.react-pdf__Page{
-    display: inline-block;
-    margin: auto;
+.react-pdf__Page {
+  display: inline-block;
+  margin: auto;
 }
-.result{
-    background:linear-gradient(to left, #0003b0, #2f8fc7);
-    border-radius: 10px;
-    min-height: 80px;
-    max-width: 50%;
-    margin: auto;
-    color: white;
+.result {
+  background: linear-gradient(to left, #0003b0, #2f8fc7);
+  border-radius: 10px;
+  min-height: 80px;
+  max-width: 50%;
+  margin: auto;
+  color: white;
 }
-.result p{
-    margin-top: 20px;
-    padding-top: 15px;
-    font-size: 2rem;
+.result p {
+  margin-top: 20px;
+  padding-top: 15px;
+  font-size: 2rem;
 }
-#assignment-ques{
-    color:#19a051
+#assignment-ques {
+  color: #19a051;
 }
-#deadline{
-    color: rgb(224, 58, 58);
+#deadline {
+  color: rgb(224, 58, 58);
 }
