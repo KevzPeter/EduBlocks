@@ -180,21 +180,21 @@ export const Course = ({ address, contract }) => {
                   Submit
                 </Button>
                 <h6 className="my-2" id="deadline">
-                  Submission Deadline <i class="far fa-clock"></i>
+                  Submission Deadline <i className="far fa-clock"></i>
                   {id.user === "educator" ? <p>{deadline} days</p> : <p>{purchaseTime.toString().substring(0, 24)}</p>}
                 </h6>
                 {show ? (
                   err ? (
                     <Alert variant="danger" className="alert-dismissible fade show">
                       <p>Error</p>
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </Alert>
                   ) : (
                     <Alert variant="success" className="alert-dismissible fade show">
                       <p>Success</p>
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </Alert>

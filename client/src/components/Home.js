@@ -26,7 +26,7 @@ export const Home = ({ address, contract, t_contract, ts_contract, error }) => {
           <p>
             EDBX Token Address: {t_contract?._address}{" "}
             <i
-              class="far fa-copy"
+              className="far fa-copy"
               onClick={() => {
                 navigator.clipboard.writeText(t_contract._address.toString());
               }}
