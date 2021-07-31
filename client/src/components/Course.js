@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import {
-  Nav,
-  Button,
-  Row,
-  Col,
-  Tab,
-  Form,
-  Badge,
-  Alert,
-} from "react-bootstrap";
+import { Nav, Button, Row, Col, Tab, Form, Badge, Alert } from "react-bootstrap";
 import "../styles/Course.css";
 import { useLocation } from "react-router-dom";
 import { UserContext } from "../UserContext";
@@ -47,11 +38,7 @@ export const Course = ({ address, contract }) => {
     setStd_Name(location.s_name);
     setPurchaseTime(new Date(location.deadline * 1000).toString());
     axios
-      .post(
-        "http://localhost:4000/courses/content",
-        { course_id: location.c_id },
-        { headers: { "Content-Type": "application/json" } }
-      )
+      .post("http://localhost:4000/courses/content", { course_id: location.c_id }, { headers: { "Content-Type": "application/json" } })
       .then((res) => {
         setAuthor(res.data.author);
         setAuthorID(res.data.author_id);
@@ -68,11 +55,7 @@ export const Course = ({ address, contract }) => {
         } else console.log(err);
       });
     axios
-      .post(
-        "http://localhost:4000/submissions/getmarks",
-        { std_id: id.id, course_id: location.c_id },
-        { headers: { "Content-Type": "application/json" } }
-      )
+      .post("http://localhost:4000/submissions/getmarks", { std_id: id.id, course_id: location.c_id }, { headers: { "Content-Type": "application/json" } })
       .then((res) => {
         setMarks(res.data.marks);
       })
@@ -105,35 +88,33 @@ export const Course = ({ address, contract }) => {
     e.preventDefault();
     const time = Math.round(new Date().getTime() / 1000);
     //check submission time
-    await contract.methods
-      .submitAssignment(parseInt(std_ID), parseInt(courseID), parseInt(time))
-      .send({ from: address }, (err, hash) => {
-        if (err) console.log("Error: ", err);
-        else {
-          const form = new FormData();
-          form.append("course_name", courseName);
-          form.append("course_id", courseID);
-          form.append("std_name", std_Name);
-          form.append("std_id", std_ID);
-          form.append("address", address);
-          form.append("author", author);
-          form.append("author_id", authorID);
-          form.append("content", content);
-          form.append("transaction_hash", hash);
-          form.append("submission_time", time);
-          axios
-            .post("http://localhost:4000/submissions/upload", form)
-            .then(async (res) => {
-              res.status == 200 ? setErr(false) : setErr(true);
-              setShow(true);
-            })
-            .catch((err) => {
-              if (!err) {
-                console.log("Network Error");
-              } else console.log(err);
-            });
-        }
-      });
+    await contract.methods.submitAssignment(parseInt(std_ID), parseInt(courseID), parseInt(time)).send({ from: address }, (err, hash) => {
+      if (err) console.log("Error: ", err);
+      else {
+        const form = new FormData();
+        form.append("course_name", courseName);
+        form.append("course_id", courseID);
+        form.append("std_name", std_Name);
+        form.append("std_id", std_ID);
+        form.append("address", address);
+        form.append("author", author);
+        form.append("author_id", authorID);
+        form.append("content", content);
+        form.append("transaction_hash", hash);
+        form.append("submission_time", time);
+        axios
+          .post("http://localhost:4000/submissions/upload", form)
+          .then(async (res) => {
+            res.status === 200 ? setErr(false) : setErr(true);
+            setShow(true);
+          })
+          .catch((err) => {
+            if (!err) {
+              console.log("Network Error");
+            } else console.log(err);
+          });
+      }
+    });
   };
 
   return (
@@ -148,7 +129,7 @@ export const Course = ({ address, contract }) => {
               <Nav.Item>
                 <Nav.Link eventKey="second">Assignment</Nav.Link>
               </Nav.Item>
-              {id.user == "student" ? (
+              {id.user === "student" ? (
                 <Nav.Item>
                   <Nav.Link eventKey="third">Grades</Nav.Link>
                 </Nav.Item>
@@ -160,36 +141,20 @@ export const Course = ({ address, contract }) => {
               <Tab.Pane eventKey="first">
                 <div>
                   {content ? (
-                    <Document
-                      file={{ data: content.data }}
-                      onLoadSuccess={onDocumentLoadSuccess}
-                    >
+                    <Document file={{ data: content.data }} onLoadSuccess={onDocumentLoadSuccess}>
                       <Page pageNumber={pageNumber} />
                     </Document>
                   ) : (
-                    <Loader
-                      type="TailSpin"
-                      color="#00BFFF"
-                      height={150}
-                      width={150}
-                      timeout={3000}
-                    />
+                    <Loader type="TailSpin" color="#00BFFF" height={150} width={150} timeout={3000} />
                   )}
                   <p>
                     Page {pageNumber} of {numPages}
                   </p>
                   <div className="buttonc">
-                    <Button
-                      disabled={pageNumber <= 1}
-                      onClick={previousPage}
-                      className="mx-2"
-                    >
+                    <Button disabled={pageNumber <= 1} onClick={previousPage} className="mx-2">
                       Previous
                     </Button>
-                    <Button
-                      disabled={pageNumber >= numPages}
-                      onClick={nextPage}
-                    >
+                    <Button disabled={pageNumber >= numPages} onClick={nextPage}>
                       Next
                     </Button>
                   </div>
@@ -201,94 +166,47 @@ export const Course = ({ address, contract }) => {
                 </h6>
                 <h3 className="my-2">{question}</h3>
                 <Form>
-                  <Form.File
-                    id="assignment-file"
-                    label="Choose PDF"
-                    custom
-                    onChange={c_changeHandler}
-                  />
+                  <Form.File id="assignment-file" label="Choose PDF" custom onChange={c_changeHandler} />
                 </Form>
                 {isContentPicked && !show ? (
                   <>
-                    {content == null ? "" : <p>File: {content.name}</p>}
-                    {content == null ? (
-                      ""
-                    ) : (
-                      <p>Size: {(content.size / 1000000).toFixed(1)}MB</p>
-                    )}
+                    {content === null ? "" : <p>File: {content.name}</p>}
+                    {content === null ? "" : <p>Size: {(content.size / 1000000).toFixed(1)}MB</p>}
                   </>
                 ) : (
                   <h6>Upload Assignment</h6>
                 )}
-                <Button
-                  className="btn-success my-4"
-                  onClick={uploadSubmission}
-                  disabled={
-                    id.user == "educator" ||
-                    isContentPicked === false ||
-                    show === true
-                  }
-                >
+                <Button className="btn-success my-4" onClick={uploadSubmission} disabled={id.user === "educator" || isContentPicked === false || show === true}>
                   Submit
                 </Button>
                 <h6 className="my-2" id="deadline">
                   Submission Deadline <i class="far fa-clock"></i>
-                  {id.user == "educator" ? (
-                    <p>{deadline} days</p>
-                  ) : (
-                    <p>{purchaseTime.toString().substring(0, 24)}</p>
-                  )}
+                  {id.user === "educator" ? <p>{deadline} days</p> : <p>{purchaseTime.toString().substring(0, 24)}</p>}
                 </h6>
                 {show ? (
                   err ? (
-                    <Alert
-                      variant="danger"
-                      className="alert-dismissible fade show"
-                    >
+                    <Alert variant="danger" className="alert-dismissible fade show">
                       <p>Error</p>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                      >
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </Alert>
                   ) : (
-                    <Alert
-                      variant="success"
-                      className="alert-dismissible fade show"
-                    >
+                    <Alert variant="success" className="alert-dismissible fade show">
                       <p>Success</p>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                      >
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </Alert>
                   )
                 ) : null}
               </Tab.Pane>
-              {id.user == "student" ? (
+              {id.user === "student" ? (
                 <Tab.Pane eventKey="third">
                   <div className="result">
                     <p>
                       {marks ? (
-                        <Badge
-                          variant={
-                            marks >= 90
-                              ? "success"
-                              : marks >= 60
-                              ? "warning"
-                              : "danger"
-                          }
-                        >
-                          Result: {marks}/100 Marks
-                        </Badge>
+                        <Badge variant={marks >= 90 ? "success" : marks >= 60 ? "warning" : "danger"}>Result: {marks}/100 Marks</Badge>
                       ) : show ? (
                         "Assignment not graded"
                       ) : (

@@ -12,13 +12,9 @@ export const Search = ({ address, contract, t_contract, ts_contract }) => {
 
   const getResults = async () => {
     await axios
-      .post(
-        "http://localhost:4000/courses/results",
-        { searchterm: search },
-        { headers: { "Content-Type": "application/json" } }
-      )
+      .post("http://localhost:4000/courses/results", { searchterm: search }, { headers: { "Content-Type": "application/json" } })
       .then((res) => {
-        if (res.data != undefined) {
+        if (res.data !== undefined) {
           setErr(false);
           console.log(res.data);
           setResults(res.data);
@@ -32,18 +28,9 @@ export const Search = ({ address, contract, t_contract, ts_contract }) => {
   const ShowResults = () => {
     return err ? (
       <div className="alert-box">
-        <Alert
-          variant="danger"
-          className="alert-dismissible fade show"
-          id="home-alert"
-        >
+        <Alert variant="danger" className="alert-dismissible fade show" id="home-alert">
           No results
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </Alert>
@@ -77,12 +64,7 @@ export const Search = ({ address, contract, t_contract, ts_contract }) => {
   return (
     <div className="search-box">
       <div className="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search for courses"
-          onChange={(e) => setSearch(e.target.value)}
-        ></input>
+        <input type="text" className="form-control" placeholder="Search for courses" onChange={(e) => setSearch(e.target.value)}></input>
         <div className="input-group-append">
           <button className="btn btn-primary" onClick={getResults}>
             <i className="fas fa-search"></i>

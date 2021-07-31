@@ -7,7 +7,7 @@ export const Login = ({ contract }) => {
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
   const [type, setType] = useState(true);
-  const { id, setID } = useContext(UserContext);
+  const { setID } = useContext(UserContext);
   const [fail, setFail] = useState(false);
   const [passerr, setPasserr] = useState(false);
   const error = (err) => {
@@ -38,7 +38,7 @@ export const Login = ({ contract }) => {
             .studentLogin(name, pass)
             .call()
             .then((res) => {
-              if (res[0] != -1 && res[0] != 0) {
+              if (res[0] !== -1 && res[0] !== 0) {
                 setID({ id: res[0], user: "student" });
                 setFail(false);
                 history.push("/student");
@@ -52,7 +52,7 @@ export const Login = ({ contract }) => {
         .educatorLogin(name, pass)
         .call()
         .then((res) => {
-          if (res[0] != -1 && res[0] != 0) {
+          if (res[0] !== -1 && res[0] !== 0) {
             setID({ id: res[0], user: "educator" });
             setFail(false);
             history.push("/educator");
@@ -82,29 +82,13 @@ export const Login = ({ contract }) => {
             <span>
               <i className="fas fa-user-circle fa-2x"></i>
             </span>
-            <input
-              className="form-control my-2"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Name"
-              autoComplete="on"
-              onChange={(e) => setName(e.target.value)}
-            ></input>
+            <input className="form-control my-2" type="text" id="name" name="name" placeholder="Name" autoComplete="on" onChange={(e) => setName(e.target.value)}></input>
           </div>
           <div className="form-field">
             <span>
               <i className="fas fa-key fa-2x"></i>
             </span>
-            <input
-              className="form-control my-2"
-              type="password"
-              id="pass"
-              name="pass"
-              placeholder="Password"
-              autoComplete="on"
-              onChange={(e) => setPass(e.target.value)}
-            ></input>
+            <input className="form-control my-2" type="password" id="pass" name="pass" placeholder="Password" autoComplete="on" onChange={(e) => setPass(e.target.value)}></input>
           </div>
           {passerr ? error(true) : null}
         </form>
@@ -118,10 +102,7 @@ export const Login = ({ contract }) => {
               setType(!type);
             }}
           />
-          <label
-            className="custom-control-label"
-            htmlFor="customSwitchesChecked"
-          >
+          <label className="custom-control-label" htmlFor="customSwitchesChecked">
             Login as Student
           </label>
         </div>

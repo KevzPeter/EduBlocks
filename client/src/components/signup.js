@@ -16,29 +16,25 @@ export const Signup = ({ address, contract }) => {
   };
   const addUser = async () => {
     if (type === true) {
-      await contract?.methods
-        .addStudent(name, pass)
-        .send({ from: address }, (err, hash) => {
-          if (err) {
-            console.log("Error: ", err);
-            setFail(true);
-          } else {
-            console.log("Hash: ", hash);
-            setSucc(true);
-          }
-        });
+      await contract?.methods.addStudent(name, pass).send({ from: address }, (err, hash) => {
+        if (err) {
+          console.log("Error: ", err);
+          setFail(true);
+        } else {
+          console.log("Hash: ", hash);
+          setSucc(true);
+        }
+      });
     } else {
-      await contract?.methods
-        .addEducator(name, pass)
-        .send({ from: address }, (err, hash) => {
-          if (err) {
-            console.log("Error: ", err);
-            setFail(true);
-          } else {
-            console.log("Hash: ", hash);
-            setSucc(true);
-          }
-        });
+      await contract?.methods.addEducator(name, pass).send({ from: address }, (err, hash) => {
+        if (err) {
+          console.log("Error: ", err);
+          setFail(true);
+        } else {
+          console.log("Hash: ", hash);
+          setSucc(true);
+        }
+      });
     }
   };
   const passError = () => {
@@ -65,9 +61,7 @@ export const Signup = ({ address, contract }) => {
   };
   return (
     <div className="outer-container justify-content-center">
-      <div className="text-center py-2">
-        {succ ? success() : fail ? failure() : null}
-      </div>
+      <div className="text-center py-2">{succ ? success() : fail ? failure() : null}</div>
       <div className="text-center py-2">
         <h4>Signup</h4>
       </div>
@@ -77,27 +71,13 @@ export const Signup = ({ address, contract }) => {
             <span>
               <i className="fas fa-user-circle fa-2x"></i>
             </span>
-            <input
-              className="form-control my-2"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-            ></input>
+            <input className="form-control my-2" type="text" id="name" name="name" placeholder="Name" onChange={(e) => setName(e.target.value)}></input>
           </div>
           <div className="form-field">
             <span>
               <i className="fas fa-key fa-2x"></i>
             </span>
-            <input
-              className="form-control my-2"
-              type="password"
-              id="pass"
-              name="pass"
-              placeholder="Password"
-              onChange={(e) => setPass(e.target.value)}
-            ></input>
+            <input className="form-control my-2" type="password" id="pass" name="pass" placeholder="Password" onChange={(e) => setPass(e.target.value)}></input>
           </div>
           <div className="custom-control custom-switch">
             <input
@@ -109,10 +89,7 @@ export const Signup = ({ address, contract }) => {
                 setType(!type);
               }}
             />
-            <label
-              className="custom-control-label"
-              htmlFor="customSwitchesChecked"
-            >
+            <label className="custom-control-label" htmlFor="customSwitchesChecked">
               Signup as Student
             </label>
           </div>
