@@ -4,6 +4,10 @@ const Course = require("../models/course");
 const path = require("path");
 const multer = require("multer");
 const upload = multer();
+
+router.get("/", (req, res) => {
+  res.status(200).send("This is the courses route");
+});
 //post course details
 router.post("/upload", upload.any(), async (req, res) => {
   if (req.body.name == null || undefined) {

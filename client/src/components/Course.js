@@ -208,9 +208,9 @@ export const Course = ({ address, contract }) => {
                     onChange={c_changeHandler}
                   />
                 </Form>
-                {isContentPicked ? (
+                {isContentPicked && !show ? (
                   <>
-                    {content == null ? "" : <p>File {content.name}</p>}
+                    {content == null ? "" : <p>File: {content.name}</p>}
                     {content == null ? (
                       ""
                     ) : (
@@ -223,7 +223,11 @@ export const Course = ({ address, contract }) => {
                 <Button
                   className="btn-success my-4"
                   onClick={uploadSubmission}
-                  disabled={id.user == "educator"}
+                  disabled={
+                    id.user == "educator" ||
+                    isContentPicked === false ||
+                    show === true
+                  }
                 >
                   Submit
                 </Button>
@@ -232,7 +236,7 @@ export const Course = ({ address, contract }) => {
                   {id.user == "educator" ? (
                     <p>{deadline} days</p>
                   ) : (
-                    <p>{purchaseTime}</p>
+                    <p>{purchaseTime.toString().substring(0, 24)}</p>
                   )}
                 </h6>
                 {show ? (
@@ -285,6 +289,8 @@ export const Course = ({ address, contract }) => {
                         >
                           Result: {marks}/100 Marks
                         </Badge>
+                      ) : show ? (
+                        "Assignment not graded"
                       ) : (
                         "Please submit Assignment"
                       )}

@@ -1,0 +1,29 @@
+.footer {
+  position: relative;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  display: flex;
+}
+.footer p {
+  font-size: 1rem;
+  margin: 0.5rem auto;
+  color: #303030;
+  font-weight: 600;
+}
+.footer .links {
+  position: absolute;
+  right: 0;
+  font-size: 2rem;
+}
+.footer .links .fab {
+  margin: 0 1rem;
+}
+@media screen and (max-width: 768px) {
+  .footer p {
+    font-size: 0.8rem;
+    margin: 0.75rem auto;
+  }
+  .footer .links .fab {
+    margin: 0 0.5rem;
+  }
+}

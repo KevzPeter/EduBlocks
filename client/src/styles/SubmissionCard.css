@@ -1,49 +1,59 @@
-.submission-card{
-    display:grid;
-    grid-template-columns: 20% 80%;
-    margin: 15px;
-    border-radius: 10px;
-    padding-bottom: 5px;
-    background-color: #F8F8F8;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+.submission-card {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  margin: 15px;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  background-color: #f8f8f8;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-.submit-img{
-    background-color: #F8F8F8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.submit-img {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.submit-img img{
-    max-width:180px;
-    height: auto;
+.submit-img img {
+  max-width: 180px;
+  height: auto;
 }
-.submission-content{
-    padding-left: 10px;
-    text-align: left;
+.submission-content {
+  padding-left: 10px;
+  text-align: left;
 }
-#std-name{
-    font-size: 1.3em;
-    font-weight: bold;
+#std-name {
+  font-size: 1.3em;
+  font-weight: bold;
 }
-#scourse-title{
-    font-size: 1.1em;
+#scourse-title {
+  font-size: 1.1em;
 }
-#course-assgn{
-    font-size: 1.1em;
+#course-assgn {
+  font-size: 1.1em;
 }
-#tx-hash{
-    font-size: 0.8rem;
-    color: #636363;
+#tx-hash {
+  font-size: 0.8rem;
+  color: #636363;
 }
 .modal-content {
-    width: 40vw;
+  width: 40vw;
 }
-.react-pdf__Page__canvas{
-    max-width: 500px;
+.react-pdf__Page__canvas {
+  max-width: 800px;
 }
-.marks{
-background-color: #6D83F2;
-color: white;
-border-radius: 10px;
-padding: 5px 0;
+.react-pdf__Document.submission-pdf .react-pdf__Page__canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+.marks {
+  background-color: #6d83f2;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 0;
+}
+@media screen and (max-width: 768px) {
+  .react-pdf__Page__canvas {
+    max-width: 350px !important;
+    height: auto !important;
+  }
 }

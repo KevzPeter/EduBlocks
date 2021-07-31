@@ -65,7 +65,7 @@ contract Edublocks {
         view
         returns (int256, bool)
     {
-        require(!isEducator[msg.sender], "Cannot login as Student"); //check if it's a student account
+        //require(!isEducator[msg.sender], "Cannot login as Student"); //check if it's a student account
         bool found = false;
         for (int256 i = 0; i <= studentCount; i++) {
             if (
@@ -156,11 +156,11 @@ contract Edublocks {
             }
         }
         if (_m >= 90) {
-            students[s_id].balance += 10;
+            students[s_id].balance += 20;
         } else if (_m >= 80) {
-            students[s_id].balance += 5;
+            students[s_id].balance += 10;
         } else if (_m >= 70) {
-            students[s_id].balance += 2;
+            students[s_id].balance += 5;
         } else if (_m < 40) {
             revert("Sorry, you have failed.");
         }

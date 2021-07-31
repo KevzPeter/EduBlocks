@@ -1,24 +1,33 @@
-.outer-container{
-  background:linear-gradient(to left, #00b09b, #6A82FB);
-    height: 100vh;
-    color: white;
+.outer-container {
+  background: linear-gradient(to left, #00b09b, #6a82fb);
+  height: 100vh;
+  color: white;
 }
-.outer-container span{
-    min-width: 50px;
-  }
-  .form-field{
-    display: flex;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-  }
-  .form-field .fas{
-    margin: 12px 12px 0 0;
-  }
-  #help{
-    background: linear-gradient(to right, #0f0c29,#302b63,#24243e);
-    width: 30%;
-    margin: auto;
-    margin-top: 20px;
-    border-radius: 5px;
-  }
+.outer-container span {
+  min-width: 50px;
+}
+.form-field {
+  display: flex;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+.form-field .fas {
+  margin: 12px 12px 0 0;
+}
+.access-info {
+  color: #fff;
+  display: flex;
+  margin-top: 1rem;
+}
+.access-info p {
+  margin: auto;
+  padding: 0.5rem 3.75rem;
+
+  border-radius: 5px;
+  background: #303030;
+  font-size: 0.75rem;
+}
+.access-info span {
+  margin: 1rem 0;
+}

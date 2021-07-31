@@ -11,12 +11,15 @@
   min-height: 1000px;
 }
 .react-pdf__Document {
-  width: 100%;
   text-align: center;
+  margin-top: 2rem;
 }
 .react-pdf__Page {
   display: inline-block;
   margin: auto;
+}
+.react-pdf__Page__canvas {
+  border-radius: 10px;
 }
 .result {
   background: linear-gradient(to left, #0003b0, #2f8fc7);

@@ -1,0 +1,38 @@
+.home-introduction {
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.home-introduction h3 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.hi-container {
+  background-color: #fff;
+  margin: 1rem 2rem;
+  padding: 0.5rem;
+  color: #303030;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+.hi-container img {
+  width: 100%;
+  height: auto;
+}
+.hi-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  margin: auto;
+  padding: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .hi-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .hi-text {
+    font-size: 0.9rem;
+  }
+}

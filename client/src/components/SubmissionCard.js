@@ -29,6 +29,7 @@ export const SubmissionCard = ({
   const [pageNumber, setPageNumber] = useState(1);
   const [grade, setGrade] = useState("");
   const [err, setErr] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
   const [showErr, setShowErr] = useState(false);
 
   function onDocumentLoadSuccess({ numPages }) {
@@ -60,6 +61,13 @@ export const SubmissionCard = ({
           if (err) console.log("Error: ", err);
           else console.log("Hash: ", hash);
         });
+    } else if (grade >= 70) {
+      await ts_contract.methods
+        .rewardToken(student_address, 5)
+        .send({ from: address }, (err, hash) => {
+          if (err) console.log("Error: ", err);
+          else console.log("Hash: ", hash);
+        });
     }
     axios
       .post("http://localhost:4000/submissions/uploadmarks", {
@@ -69,6 +77,7 @@ export const SubmissionCard = ({
       })
       .then(async (res) => {
         setShowErr(true);
+        setUploaded(true);
         res.status == 200 ? setErr(false) : setErr(true);
       })
       .catch((err) => {
@@ -86,7 +95,10 @@ export const SubmissionCard = ({
         <p id="std-name">Submitted by: {std_name}</p>
         <p id="scourse-title">Course: {course_name}</p>
         <p id="marks">
-          Marks: <Badge variant="info">{marks ? marks : "Ungraded"}</Badge>
+          Marks:{" "}
+          <Badge variant="info">
+            {marks || uploaded ? marks || grade : "Ungraded"}
+          </Badge>
         </p>
         <Button className="btn-info" onClick={handleShow} disabled={marks != 0}>
           Grade Submission
@@ -98,6 +110,7 @@ export const SubmissionCard = ({
           <Modal.Body>
             {content ? (
               <Document
+                className="submission-pdf"
                 file={{ data: content.data }}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
@@ -153,7 +166,7 @@ export const SubmissionCard = ({
             <Button variant="danger" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="success" onClick={uploadMarks}>
+            <Button variant="success" onClick={uploadMarks} disabled={uploaded}>
               Set Grade
             </Button>
           </Modal.Footer>
