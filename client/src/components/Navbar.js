@@ -21,10 +21,10 @@ const Navigation = () => {
         <Navbar.Collapse>
           <Nav>
             <Nav.Link href="/login">
-              <Button className="btn-success">Login</Button>
+              <Button className="btn-primary">Login</Button>
             </Nav.Link>
             <Nav.Link href="/signup">
-              <Button className="btn-success">Signup</Button>
+              <Button className="btn-primary">Signup</Button>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

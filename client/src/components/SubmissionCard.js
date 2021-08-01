@@ -6,7 +6,7 @@ import "../styles/SubmissionCard.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const axios = require("axios");
 
-export const SubmissionCard = ({ address, contract, ts_contract, std_name, course_name, std_id, course_id, tx, content, student_address, marks }) => {
+export const SubmissionCard = ({ address, ts_contract, std_name, course_name, std_id, course_id, tx, content, student_address, marks }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);

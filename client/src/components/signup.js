@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "../styles/Login.css";
 
 export const Signup = ({ address, contract }) => {
@@ -10,6 +12,7 @@ export const Signup = ({ address, contract }) => {
   const [fail, setFail] = useState(false);
   const [type, setType] = useState(true);
   const [passerr, setPasserr] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const success = () => {
     history.push("/login");
@@ -17,6 +20,7 @@ export const Signup = ({ address, contract }) => {
   const addUser = async () => {
     if (type === true) {
       await contract?.methods.addStudent(name, pass).send({ from: address }, (err, hash) => {
+        setLoading(false);
         if (err) {
           console.log("Error: ", err);
           setFail(true);
@@ -27,6 +31,7 @@ export const Signup = ({ address, contract }) => {
       });
     } else {
       await contract?.methods.addEducator(name, pass).send({ from: address }, (err, hash) => {
+        setLoading(false);
         if (err) {
           console.log("Error: ", err);
           setFail(true);
@@ -56,6 +61,7 @@ export const Signup = ({ address, contract }) => {
     if (pass.length < 8) {
       setPasserr(true);
     } else {
+      setLoading(true);
       addUser();
     }
   };
@@ -90,15 +96,15 @@ export const Signup = ({ address, contract }) => {
               }}
             />
             <label className="custom-control-label" htmlFor="customSwitchesChecked">
-              Signup as Student
+              {type ? "Student Account" : "Educator Account"}
             </label>
           </div>
           {passerr ? passError() : null}
         </form>
       </div>
       <div className="col-md-4 offset-md-4 text-center py-2">
-        <button type="submit" className="btn btn-primary" onClick={post}>
-          Register
+        <button type="submit" className="btn btn-success" onClick={post}>
+          {loading ? <Loader type="TailSpin" height="30" width="30" color="#fff" /> : "Register"}
         </button>
         <div className="access-info">
           <span>

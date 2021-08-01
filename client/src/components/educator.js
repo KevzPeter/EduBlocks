@@ -348,11 +348,15 @@ export const Educator = ({ address, contract, t_contract, ts_contract }) => {
                       </Button>
                     </Modal.Footer>
                   </Modal>
-                  <h3> You have created {count} course(s)</h3>
+                  <h3>
+                    You have created {count} course{count === 1 ? null : "s"}
+                  </h3>
                   <ShowResults />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                  <h4>You have {submissions.length} submission(s)</h4>
+                  <h3>
+                    You have {submissions.length} submission{submissions.length === 1 ? null : "s"}
+                  </h3>
                   <ShowSubmissions />
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">

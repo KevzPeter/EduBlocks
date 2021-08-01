@@ -1,7 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "../styles/Login.css";
+
 export const Login = ({ contract }) => {
   const history = useHistory();
   const [pass, setPass] = useState("");
@@ -10,6 +13,8 @@ export const Login = ({ contract }) => {
   const { setID } = useContext(UserContext);
   const [fail, setFail] = useState(false);
   const [passerr, setPasserr] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const error = (err) => {
     if (err) {
       return (
@@ -21,6 +26,7 @@ export const Login = ({ contract }) => {
       return null;
     }
   };
+
   const failure = () => {
     return (
       <div className="alert alert-danger" role="alert">
@@ -28,6 +34,7 @@ export const Login = ({ contract }) => {
       </div>
     );
   };
+
   const loginfunc = async () => {
     if (type === true) {
       await contract.methods
@@ -38,7 +45,8 @@ export const Login = ({ contract }) => {
             .studentLogin(name, pass)
             .call()
             .then((res) => {
-              if (res[0] !== -1 && res[0] !== 0) {
+              setLoading(false);
+              if (res[0] != -1 && res[0] != 0) {
                 setID({ id: res[0], user: "student" });
                 setFail(false);
                 history.push("/student");
@@ -52,7 +60,8 @@ export const Login = ({ contract }) => {
         .educatorLogin(name, pass)
         .call()
         .then((res) => {
-          if (res[0] !== -1 && res[0] !== 0) {
+          setLoading(false);
+          if (res[0] != -1 && res[0] != 0) {
             setID({ id: res[0], user: "educator" });
             setFail(false);
             history.push("/educator");
@@ -62,10 +71,12 @@ export const Login = ({ contract }) => {
         });
     }
   };
+
   const post = () => {
     if (pass.length === 0 || name.length === 0) {
       setPasserr(true);
     } else {
+      setLoading(true);
       setPasserr(false);
       loginfunc();
     }
@@ -103,13 +114,13 @@ export const Login = ({ contract }) => {
             }}
           />
           <label className="custom-control-label" htmlFor="customSwitchesChecked">
-            Login as Student
+            {type ? "Student Account" : "Educator Account"}
           </label>
         </div>
       </div>
       <div className="col-md-4 offset-md-4 text-center py-2">
-        <button type="submit" className="btn btn-primary" onClick={post}>
-          Login
+        <button type="submit" className="btn btn-success" onClick={post}>
+          {loading ? <Loader type="TailSpin" height="30" width="30" color="#fff" /> : "Login"}
         </button>
         <div className="access-info">
           <span>

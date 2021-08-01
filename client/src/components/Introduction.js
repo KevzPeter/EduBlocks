@@ -18,11 +18,11 @@ const Introduction = () => {
           </p>
         </div>
       </div>
-      <div className="hi-container">
-        <img src={teaching} alt="teaching"></img>
+      <div className="hi-container" id="alt">
         <div className="hi-text">
           <p>Get access to a wide audience & receive fair payment. Use your creative skills to make engaging & intuitive academic content.</p>
         </div>
+        <img src={teaching} alt="teaching"></img>
       </div>
       <div className="hi-container">
         <img src={rewards} alt="rewards"></img>

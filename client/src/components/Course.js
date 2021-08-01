@@ -164,7 +164,7 @@ export const Course = ({ address, contract }) => {
                 <h6 className="my-2" id="assignment-ques">
                   Assignment Question
                 </h6>
-                <h3 className="my-2">{question}</h3>
+                <h4 className="my-2">{question}</h4>
                 <Form>
                   <Form.File id="assignment-file" label="Choose PDF" custom onChange={c_changeHandler} />
                 </Form>

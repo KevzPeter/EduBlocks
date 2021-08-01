@@ -142,7 +142,7 @@ export const Student = ({ address, contract, t_contract, ts_contract }) => {
                       }}
                     ></input>
                     <p>
-                      <Badge variant="info">{tokens * 1000000000000000} Wei</Badge> = <Badge variant="info">{tokens * 0.001} Ether</Badge>
+                      <Badge variant="info">{tokens * 100000000000000} Wei</Badge> = <Badge variant="info">{tokens * 0.0001} Ether</Badge>
                     </p>
                     <Button
                       className="btn-primary"
